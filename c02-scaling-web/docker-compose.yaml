@@ -2,7 +2,7 @@ version: "3.8"
 
 services: 
   lb:
-    image: learndocker-lb:latest
+    image: learndocker/nginx-lb:alpine
     build:
       context: ./load-balancer
     depends_on: 

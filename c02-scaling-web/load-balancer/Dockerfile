@@ -1,6 +1,7 @@
-FROM nginx:1.19
+FROM nginx:1.19-alpine
 
-RUN apt-get update && apt-get install gettext-base
+RUN apk --update --no-cache add \
+    gettext
 
 ENV PROXY_PROTOCOL=http PROXY_UPSTREAM=example.com
 
