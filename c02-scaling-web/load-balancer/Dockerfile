@@ -1,12 +1,13 @@
-FROM jfahrer/nginx:latest
+FROM nginx:1.19
 
 RUN apt-get update && apt-get install gettext-base
 
 ENV PROXY_PROTOCOL=http PROXY_UPSTREAM=example.com
 
-COPY nginx/proxy.conf /etc/nginx/sites-available/default.template
+COPY docker-entrypoint.sh .
 
-COPY nginx/start.sh /
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf.template
 
-CMD [ "/start.sh" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
+CMD [ "nginx", "-g", "daemon off;" ]
