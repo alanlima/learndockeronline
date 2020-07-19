@@ -1,0 +1,32 @@
+  version: "3.8"
+
+  services:
+    app:
+      image: learndocker-webapp/csharp:v1-win
+      environment: 
+        - POSTGRES_DB
+        - POSTGRES_USER
+        - POSTGRES_PASSWORD
+        - POSTGRES_HOST
+      depends_on: 
+        - pg
+    
+    pg:
+      image: postgres:12.3-alpine
+      ports:
+        - 5432:5432
+      environment: 
+        - POSTGRES_DB
+        - POSTGRES_USER
+        - POSTGRES_PASSWORD
+      volumes: 
+        - ./sql/create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
+    
+    lb:
+      image: learndocker-lb/yarp:v1
+      build: 
+        context: .
+      ports:
+        - 6060:80
+      environment: 
+        - PROXY_UPSTREAM
