@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  nginx-full:
+    image: alanrlima/learndocker-nginx:stretch-full
+    build:
+      context: .
+      args: 
+        NGINX_VERSION: full
+  
+  nginx-light:
+    image: alanrlima/learndocker-nginx:stretch-light
+    build: 
+      context: .
+      args: 
+        NGINX_VERSION: light
+
+  nginx-extras:
+    image: alanrlima/learndocker-nginx:stretch-extras
+    build: 
+      context: .
+      args: 
+        NGINX_VERSION: extras
